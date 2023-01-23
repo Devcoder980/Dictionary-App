@@ -42,3 +42,7 @@ Switch between light and dark themes
 View the optimal layout for the interface depending on their device's screen size
 See hover and focus states for all interactive elements on the page
 Bonus: Have the correct color scheme chosen for them based on their computer preferences. Hint: Research prefers-color-scheme in CSS.
+
+## Api
+https://dictionaryapi.dev/
+https://api.dictionaryapi.dev/api/v2/entries/en/hello
