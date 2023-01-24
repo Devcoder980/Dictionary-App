@@ -1,12 +1,19 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+#   - IP address tracker
+
+![Design preview for the IP address tracker coding challenge](./src/Design/dictionaryapp1.netlify.app_.png)
+
+## Welcome! 👋
+
+Open[https://dictionaryapp1.netlify.app/]
 
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
+# Getting Started with Create React App
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
