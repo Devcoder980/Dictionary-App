@@ -127,7 +127,7 @@ useEffect(()=>{
           <div className="flex gap-4 text-lg text-black">
             <div>
               <label htmlFor="dog-names"></label>
-              <select onClick={(event)=>{setfontFamily(event.target.value)}} style={{background:`${theme}`,color:`${textColor()}`}} name="dog-names" id="dog-names">
+              <select onChange={(event)=>{setfontFamily(event.target.value)}} style={{background:`${theme}`,color:`${textColor()}`}} name="dog-names" id="dog-names">
                 <option value="serif">Serif</option>
                 <option value="cursive">cursive</option>
                 <option value="fantasy">fantasy</option>
