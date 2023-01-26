@@ -91,16 +91,30 @@ function App() {
       .then(data => {
         setdatas(data);
       })
+      .catch(() => {
+        alert('failed to fetch');
+      });
   }
   const handlechange = (event) => {
     setword(event.target.value); 
   }
   console.log(datas[0].meanings[0].definitions[0].definition);
-  let audios=new Audio(datas[0].phonetics[0].audio);
-  if(audios === "")
+  let audios1=new Audio(datas[0].phonetics[0].audio);
+  let audios2=new Audio(datas[0].phonetics[1].audio);
+  
+  let audios;
+  if(audios1 === "")
+  {
+    audios=new Audio(datas[0].phonetics[0].audio);
+  }
+  else if(audios2 === "")
   {
     audios=new Audio(datas[0].phonetics[1].audio);
   }
+  else {
+    audios=new Audio(datas[0].phonetics[2].audio);
+  }
+  
   
 useEffect(()=>{
   textColor();
@@ -117,7 +131,7 @@ useEffect(()=>{
     return "#fff"
   }
   return (
-    <div className="capitalize font-medium"  style={{background:`${theme}`,color:`${textColor()}`,fontFamily:`${fontFamilys}`}} >
+    <div className="capitalize font-medium" id='main' style={{background:`${theme}`,color:`${textColor()}`,fontFamily:`${fontFamilys}`}} >
 
       <nav className=' lg:justify-around lg:mx-32 flex justify-between items-center  mx-6 pt-4 '>
         <div>
