@@ -4,6 +4,7 @@ import moon from './Images/moon.png';
 import dic from './Images/dictionary.png'
 import playBtn from './Images/play.png';
 import { useEffect } from 'react';
+import axios from 'axios';
 const apiData =
   [
     {
@@ -77,7 +78,7 @@ const apiData =
     }
   ]
 
-  // apiData[0].phonetics[2].audio
+// apiData[0].phonetics[2].audio
 
 
 function App() {
@@ -85,63 +86,56 @@ function App() {
   const [datas, setdatas] = useState(apiData);
   const [theme, setTheme] = useState("#fff");
   const [fontFamilys, setfontFamily] = useState("sans");
+
   function dataFetch(word) {
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-      .then(response => response.json())
-      .then(data => {
-        setdatas(data);
+    axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+      .then(response => {
+        setdatas(response.data);
       })
-      .catch(() => {
+      .catch(error => {
         alert('failed to fetch');
       });
   }
   const handlechange = (event) => {
-    setword(event.target.value); 
+    setword(event.target.value);
   }
   console.log(datas[0].meanings[0].definitions[0].definition);
-  let audios1=new Audio(datas[0].phonetics[0].audio);
-  let audios2=new Audio(datas[0].phonetics[1].audio);
-  
-  let audios;
-  if(audios1 === "")
-  {
-    audios=new Audio(datas[0].phonetics[0].audio);
+  const audio = datas && datas[0] && datas[0].phonetics[0] && datas[0].phonetics[0].audio;
+  if (audio) {
+    const audioElement = new Audio(audio);
+    audioElement.play();
+  } else {
+    alert('Audio not available');
   }
-  else if(audios2 === "")
-  {
-    audios=new Audio(datas[0].phonetics[1].audio);
-  }
-  else {
-    audios=new Audio(datas[0].phonetics[2].audio);
-  }
-  
-  
-useEffect(()=>{
-  textColor();
-})
-  function textColor(){
+
+
+
+  useEffect(() => {
+    textColor();
+  })
+  function textColor() {
     if (theme === "#fff") {
       return "#000000"
     }
-    else{
+    else {
       return "#fff"
     }
   }
-  function navColor(){
+  function navColor() {
     return "#fff"
   }
   return (
-    <div className="capitalize font-medium" id='main' style={{background:`${theme}`,color:`${textColor()}`,fontFamily:`${fontFamilys}`}} >
+    <div className="capitalize font-medium" id='main' style={{ background: `${theme}`, color: `${textColor()}`, fontFamily: `${fontFamilys}` }} >
 
       <nav className=' lg:justify-around lg:mx-32 flex justify-between items-center  mx-6 pt-4 '>
         <div>
-          <img width={"44px"} className="rounded" style={{background:`${navColor()}`}} src={dic} alt="" />
+          <img width={"44px"} className="rounded" style={{ background: `${navColor()}` }} src={dic} alt="" />
         </div>
         <div className='flex gap-6'>
           <div className="flex gap-4 text-lg text-black">
             <div>
               <label htmlFor="dog-names"></label>
-              <select onChange={(event)=>{setfontFamily(event.target.value)}} style={{background:`${theme}`,color:`${textColor()}`}} name="dog-names" id="dog-names">
+              <select onChange={(event) => { setfontFamily(event.target.value) }} style={{ background: `${theme}`, color: `${textColor()}` }} name="dog-names" id="dog-names">
                 <option value="serif">Serif</option>
                 <option value="cursive">cursive</option>
                 <option value="fantasy">fantasy</option>
@@ -149,18 +143,18 @@ useEffect(()=>{
             </div>
           </div>
           <div>
-            <img width={"32px"} 
-            style={{background:`${navColor()}`}}
-            onClick={() => {
-              if (theme === "#fff") {
-                setTheme("#000000");
-              } else {
-                setTheme("#fff");
-    
-              }
-            }}
-            className="rounded-full border-2 border-white"
-            src={moon} alt="" />
+            <img width={"32px"}
+              style={{ background: `${navColor()}` }}
+              onClick={() => {
+                if (theme === "#fff") {
+                  setTheme("#000000");
+                } else {
+                  setTheme("#fff");
+
+                }
+              }}
+              className="rounded-full border-2 border-white"
+              src={moon} alt="" />
           </div>
         </div>
       </nav>
@@ -180,38 +174,38 @@ useEffect(()=>{
 
         <div className='flex mx-6 justify-between items-center '>
           <span>
-            <h1 className="text-4xl "  style={{color:`${textColor()}`,fontFamily:fontFamilys}}>{datas[0].word}</h1>
+            <h1 className="text-4xl " style={{ color: `${textColor()}`, fontFamily: fontFamilys }}>{datas[0].word}</h1>
             <p className=' my-1 text-emerald-500'>{datas[0].phonetics[0].text}</p>
           </span>
-          <span><img className='w-10 text-green-600' onClick={()=>{audios.play()}} src={playBtn} alt="" /></span>
+          <span><img className='w-10 text-green-600' onClick={() => { audio.play() }} src={playBtn} alt="" /></span>
         </div>
         <div className='flex mx-6 my-4 justify-center items-center'>
-          <h1 className='mr-1 font-bold' style={{color:`${textColor()}`}}>Noun </h1>
+          <h1 className='mr-1 font-bold' style={{ color: `${textColor()}` }}>Noun </h1>
           <hr className='border-1 w-72 lg:w-full' />
         </div>
         <div className=" mx-6">
           <label className="text-gray-400" htmlFor="meaning">Meaning</label>
           <ul className="list-disc ml-8 mt-2 text-gray-600">
-            <li style={{fontFamily:fontFamilys}}>{datas[0].meanings[0].definitions[0].definition}</li>
-            <li style={{fontFamily:fontFamilys}}>{datas[0].meanings[0].definitions[1].definition}</li>
-            <li style={{fontFamily:fontFamilys}}>{datas[0].meanings[0].definitions[2].definition}</li>
-            
+            <li style={{ fontFamily: fontFamilys }}>{datas[0].meanings[0].definitions[0].definition}</li>
+            <li style={{ fontFamily: fontFamilys }}>{datas[0].meanings[0].definitions[1].definition}</li>
+            <li style={{ fontFamily: fontFamilys }}>{datas[0].meanings[0].definitions[2].definition}</li>
+
           </ul>
-          <div className=" flex items-center justify-around mt-4"> 
-          <label className='text-gray-400 text-xl'>Synonyms</label>
-          <p className=' text-green-600 text-xl lowercase'> {datas[0].meanings[0].synonyms}</p>
+          <div className=" flex items-center justify-around mt-4">
+            <label className='text-gray-400 text-xl'>Synonyms</label>
+            <p className=' text-green-600 text-xl lowercase'> {datas[0].meanings[0].synonyms}</p>
           </div>
-           
+
         </div>
         <div className='flex mx-6 my-4 justify-center items-center'>
-          <h1 className='mr-1 font-bold' style={{color:`${textColor()}`}}>Verb </h1>
+          <h1 className='mr-1 font-bold' style={{ color: `${textColor()}` }}>Verb </h1>
           <hr className='border-1 w-72 lg:w-full' />
         </div>
         <div className='mx-6 pb-40'>
           <label className="text-gray-400" htmlFor="meaning">Meaning</label>
           <ul className='list-disc ml-8 mt-2 text-gray-600'>
-            <li style={{fontFamily:fontFamilys}}>{datas[0].meanings[1].definitions[0].definition} </li>
-            <p className='text-gray-400 ml-3 mt-2' style={{fontFamily:fontFamilys}}>“{datas[0].meanings[1].definitions[0].example}”</p>
+            <li style={{ fontFamily: fontFamilys }}>{datas[0].meanings[1].definitions[0].definition} </li>
+            <p className='text-gray-400 ml-3 mt-2' style={{ fontFamily: fontFamilys }}>“{datas[0].meanings[1].definitions[0].example}”</p>
           </ul>
         </div>
       </main>
