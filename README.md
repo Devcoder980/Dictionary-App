@@ -1,12 +1,11 @@
 
 
-#   - IP address tracker
+#   - Dictionary App
 
 ![Design preview for the IP address tracker coding challenge](./src/Design/dictionaryapp1.netlify.app_.png)
 
 ## Welcome! 👋
 
-Open[https://dictionaryapp1.netlify.app/]
 
 ## Available Scripts
 
