@@ -44,7 +44,7 @@ const apiData =
               "antonyms": []
             },
             {
-              "definition": "A device with keys of a musical keyboard, used to control electronic sound-producing devices which may be built into or separate from the keyboard device.",
+              "definition": "A , used to control electronic sound-producing devices which may be built into or separate from the keyboard device.",
               "synonyms": [],
               "antonyms": []
             }
